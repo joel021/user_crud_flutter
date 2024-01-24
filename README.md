@@ -1,7 +1,8 @@
 # user_crud_flutter
 
-A new Flutter project.
+This is a simple user interface project for the open API https://jsonplaceholder.typicode.com/.
 
+The Jira for this project is <a href="https://joel-pires.atlassian.net/jira/software/projects/CDUF/boards/1/timeline?selectedIssue=CDUF-1&shared=&atlOrigin=eyJpIjoiMTNlZDU1MTczYmRjNGQ2MWJiODMzM2YyNjhjNmU1ZDkiLCJwIjoiaiJ9">here</a>
 ## Getting Started
 
 This project is a starting point for a Flutter application.

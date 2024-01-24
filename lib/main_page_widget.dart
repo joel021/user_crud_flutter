@@ -1,39 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:user_crud_flutter/main_state.dart';
-import 'package:user_crud_flutter/main_state_full.dart';
+import 'package:user_crud_flutter/views/list_posts/list_posts.dart';
 
-class MyHomePageState extends State<MyHomePage> {
-  MainState mainState = MainState();
+class MyHomePageState extends StatelessWidget {
+  String title;
 
-  void _incrementCounter() {
-    setState(mainState.counter);
-  }
+  MyHomePageState({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text(title),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              '${mainState.message}',
+              'hello',
             ),
             Text(
-              '${mainState.count}',
+              'Hello',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const ListPosts()),
+          );
+        },
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.arrow_forward),
       ),
     );
   }
