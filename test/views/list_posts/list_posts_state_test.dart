@@ -32,7 +32,7 @@ void main() {
 		"body": "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
 	},
 """;
-    registerFallbackValue(FakeUri());
+    //registerFallbackValue(FakeUri());
 
     mockHttpClient = MockClient();
     when(() => mockHttpClient.get(Uri.parse("${URL.urlBase}/posts/")))
