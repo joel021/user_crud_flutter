@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:user_crud_flutter/components/colors.dart';
 import 'package:user_crud_flutter/config/routes.dart';
-import 'package:user_crud_flutter/components/input.dart';
+import 'package:user_crud_flutter/model/user.dart';
 import 'package:user_crud_flutter/service/login_service.dart';
+import 'package:user_crud_flutter/views/list_posts/list_posts_args.dart';
 import 'package:user_crud_flutter/views/login/login_list_user.dart';
 
 class LoginPage extends StatefulWidget {
@@ -65,10 +66,13 @@ class _LoginPageState extends State<LoginPage> {
                     String username = usernameController.text;
                     String phone = phoneController.text;
 
-                    bool isAuthenticated = await authService.authenticateUser(username, phone);
+                    bool isAuthenticated =
+                        await authService.authenticateUser(username, phone);
 
                     if (isAuthenticated) {
-                      Navigator.of(context).pushNamed(Routes.LIST_POSTS);
+                      Navigator.pushNamed(context, Routes.LIST_POSTS,
+                          arguments: ListPostsArgs(
+                              User(null, null, username, phone, null)));
                     } else {
                       print('Falha na autenticação');
                     }
@@ -81,7 +85,8 @@ class _LoginPageState extends State<LoginPage> {
                   padding: EdgeInsets.symmetric(vertical: 12.0),
                   child: Text(
                     'Login',
-                    style: TextStyle(fontSize: 16.0, color: Color.fromARGB(255, 36, 35, 35)),
+                    style: TextStyle(
+                        fontSize: 16.0, color: Color.fromARGB(255, 36, 35, 35)),
                   ),
                 ),
               ),

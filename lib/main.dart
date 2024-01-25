@@ -8,7 +8,6 @@ import 'package:user_crud_flutter/views/login/login.dart';
 
 void main() => runApp(MyApp());
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -28,4 +27,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

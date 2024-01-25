@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user_crud_flutter/components/layouts.dart';
 import 'package:user_crud_flutter/model/post.dart';
+import 'package:user_crud_flutter/views/list_posts/list_posts_args.dart';
 import 'package:user_crud_flutter/views/list_posts/list_posts_state.dart';
 
 class ListPosts extends StatefulWidget {
@@ -20,13 +21,15 @@ class ListPostsStateFull extends State<ListPosts> {
 
   @override
   void initState() {
-    print("initState");
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("build");
+    final ListPostsArgs args =
+        ModalRoute.of(context)!.settings.arguments as ListPostsArgs;
+    Provider.of<ListPostsState>(context).updateUser(args.user);
+
     return appWithBar(
         "Lista de Posts", buildActions(context), buildBody(context));
   }
@@ -59,14 +62,11 @@ class ListPostsStateFull extends State<ListPosts> {
 
   Widget buildBody(BuildContext context) {
     return Consumer<ListPostsState>(
-        builder: (_, data, __) => Expanded(
+        builder: (_, listPostsState, __) => Expanded(
                 child: ListView.builder(
-              itemCount: Provider.of<ListPostsState>(context, listen: false)
-                  .postList
-                  .length,
+              itemCount: listPostsState.postList.length,
               itemBuilder: (context, index) {
-                final post =
-                    Provider.of<ListPostsState>(context).postList[index];
+                final post = listPostsState.postList[index];
 
                 return Card(
                   child: ListTile(
