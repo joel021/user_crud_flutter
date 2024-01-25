@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:user_crud_flutter/components/colors.dart';
 import 'package:user_crud_flutter/config/routes.dart';
+import 'package:user_crud_flutter/helper/validator.dart';
 import 'package:user_crud_flutter/model/user.dart';
 import 'package:user_crud_flutter/service/login_service.dart';
 import 'package:user_crud_flutter/views/list_posts/list_posts_args.dart';
@@ -34,32 +35,26 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(height: 16.0),
               TextFormField(
                 controller: usernameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Username',
                   hintText: 'Enter your username',
                 ),
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your username';
-                  }
-                  return null;
+                  return Validator.stringValidation("user name", value);
                 },
               ),
               SizedBox(height: 16.0),
               TextFormField(
                 controller: phoneController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Phone',
                   hintText: 'Enter your phone number',
                 ),
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your phone number';
-                  }
-                  return null;
+                  return Validator.stringValidation("Phone number", value);
                 },
               ),
-              SizedBox(height: 24.0),
+              const SizedBox(height: 24.0),
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState?.validate() ?? false) {

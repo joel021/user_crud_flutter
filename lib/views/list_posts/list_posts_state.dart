@@ -54,7 +54,7 @@ class ListPostsState extends ChangeNotifier {
 
   onFetchSuccess(Response response) async {
     final postCollection = jsonDecode(response.body);
-
+    postList = [];
     for (var postJson in postCollection) {
       postList.add(Post.fromJson(postJson));
     }
@@ -64,6 +64,7 @@ class ListPostsState extends ChangeNotifier {
   }
 
   onFetchError(error, stackTrace) async {
+    postList = [];
     loading = false;
     statusMessage = "Sorry, but was not possible to retrieve the data.";
     notifyListeners();
