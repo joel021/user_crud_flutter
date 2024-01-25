@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user_crud_flutter/components/layouts.dart';
-import 'package:user_crud_flutter/config/routes.dart';
 import 'package:user_crud_flutter/model/post.dart';
-import 'package:user_crud_flutter/views/add_comment/add_comment_args.dart';
 import 'package:user_crud_flutter/views/list_posts/list_posts_state.dart';
 
 class ListPosts extends StatefulWidget {
@@ -30,7 +28,7 @@ class ListPostsStateFull extends State<ListPosts> {
   Widget build(BuildContext context) {
     print("build");
     return appWithBar(
-        "List os Posts", buildActions(context), buildBody(context));
+        "Lista de Posts", buildActions(context), buildBody(context));
   }
 
   @override
