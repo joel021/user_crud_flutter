@@ -7,6 +7,8 @@ import 'package:user_crud_flutter/views/add_comment/add_comment_args.dart';
 import 'package:user_crud_flutter/views/list_posts/list_posts_args.dart';
 import 'package:user_crud_flutter/views/list_posts/list_posts_state.dart';
 
+import '../add_comment/add_comment_state.dart';
+
 class ListPosts extends StatefulWidget {
   const ListPosts({super.key});
 
@@ -30,10 +32,15 @@ class ListPostsStateFull extends State<ListPosts> {
   Widget build(BuildContext context) {
     final ListPostsArgs args =
         ModalRoute.of(context)!.settings.arguments as ListPostsArgs;
-    Provider.of<ListPostsState>(context).updateUser(args.user);
+    Provider.of<ListPostsStateProvider>(context).updateUser(args.user);
 
-    return appWithBar(
-        "Lista de Posts", buildActions(context), buildBody(context));
+    return MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => ListPostsStateProvider()),
+          ChangeNotifierProvider(create: (_) => AddCommentState())
+        ],
+        child: appWithBar(
+            "Lista de Posts", buildActions(context), buildBody(context)));
   }
 
   @override
@@ -41,7 +48,8 @@ class ListPostsStateFull extends State<ListPosts> {
     super.didChangeDependencies();
 
     setState(() {
-      Provider.of<ListPostsState>(context, listen: false).findAllPosts();
+      Provider.of<ListPostsStateProvider>(context, listen: false)
+          .findAllPosts();
     });
   }
 
@@ -63,7 +71,7 @@ class ListPostsStateFull extends State<ListPosts> {
   }
 
   Widget buildBody(BuildContext context) {
-    return Consumer<ListPostsState>(
+    return Consumer<ListPostsStateProvider>(
         builder: (_, listPostsState, __) => Column(children: [
               Expanded(
                   child: ListView.builder(
@@ -93,7 +101,7 @@ class ListPostsStateFull extends State<ListPosts> {
     Navigator.pushNamed(context, Routes.ADD_COMMENT,
             arguments: AddCommentArgs(post))
         .then((value) => setState(() {
-              Provider.of<ListPostsState>(context, listen: false)
+              Provider.of<ListPostsStateProvider>(context, listen: false)
                   .findAllPosts();
             }));
   }

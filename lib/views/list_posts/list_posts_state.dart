@@ -5,10 +5,10 @@ import 'package:http/http.dart';
 import 'package:user_crud_flutter/helper/user_helper.dart';
 import 'package:user_crud_flutter/model/post.dart';
 import 'package:user_crud_flutter/model/user.dart';
-import 'package:user_crud_flutter/service/login_service.dart';
+import 'package:user_crud_flutter/service/user_service.dart';
 import 'package:user_crud_flutter/service/post_service.dart';
 
-class ListPostsState extends ChangeNotifier {
+class ListPostsStateProvider extends ChangeNotifier {
   User? user;
   bool loading = false;
   String statusMessage = "";

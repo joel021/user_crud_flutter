@@ -100,7 +100,7 @@ void main() {
 
   group('List Posts', () {
     test('Fetch posts and List is not empty', () async {
-      ListPostsState listPostsState = ListPostsState();
+      ListPostsStateProvider listPostsState = ListPostsStateProvider();
       listPostsState.findAllPosts();
 
       expect(() {
@@ -109,7 +109,7 @@ void main() {
     });
 
     test('Fetch posts loading is not true', () async {
-      ListPostsState listPostsState = ListPostsState();
+      ListPostsStateProvider listPostsState = ListPostsStateProvider();
       listPostsState.loading = true;
       listPostsState.findAllPosts();
 
@@ -121,7 +121,7 @@ void main() {
 
   group("Should update with the user informations.", () {
     test("Fetch user informations", () async {
-      ListPostsState listPostsState = ListPostsState();
+      ListPostsStateProvider listPostsState = ListPostsStateProvider();
       listPostsState.loading = true;
       listPostsState
           .updateUser(User(null, null, "Bret", "1-770-736-8031 x56442", null));
