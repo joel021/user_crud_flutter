@@ -7,25 +7,21 @@ import 'package:user_crud_flutter/service/comment_service.dart';
 
 import '../../model/comment.dart';
 
-class AddCommentState extends ChangeNotifier {
+class AddCommentStateProvider extends ChangeNotifier {
   List<Comment> commentList = [];
   CommentService commentService = CommentService();
-  Post? post;
 
   void updateComments(Post? post) {
-    if (commentList.isEmpty) {
-      fetchCommets(post);
+    if (post?.id != null) {
+      fetchCommets(post?.id ?? 0);
     }
   }
 
-  void fetchCommets(Post? post) async {
-    if (post?.id != null) {
-      this.post = post;
-      commentService
-          .getComments(post?.id ?? 0)
-          .then((response) => onRetrieveCommentsResult(response))
-          .onError((error, stackTrace) => null);
-    }
+  void fetchCommets(int postId) async {
+    commentService
+        .getComments(postId)
+        .then((response) => onRetrieveCommentsResult(response))
+        .onError((error, stackTrace) => null);
   }
 
   void onRetrieveCommentsResult(Response response) async {
@@ -43,14 +39,21 @@ class AddCommentState extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addComment(Comment comment) async {
+  void postComment(Comment comment) async {
     commentService
         .postComment(comment)
-        .then((value) => null)
-        .onError((error, stackTrace) => null);
+        .then((response) => onAddComment(comment))
+        .onError((error, stackTrace) => onPostCommentError());
   }
 
-  void onAddComment(Response response) async {
-    fetchCommets(post);
+  void onPostCommentError() {}
+
+  void onAddComment(Comment comment) async {
+    if (commentList.isEmpty) {
+      fetchCommets(comment.postId);
+    } else {
+      commentList.add(comment);
+      notifyListeners();
+    }
   }
 }

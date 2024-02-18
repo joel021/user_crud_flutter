@@ -4,7 +4,7 @@ import 'package:user_crud_flutter/components/buttons.dart';
 import 'package:user_crud_flutter/config/routes.dart';
 import 'package:user_crud_flutter/views/login/login_state.dart';
 
-import '../../components/input.dart';
+import '../../components/forms.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -34,16 +34,16 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  Widget loginContent(LoginStateProvider notifier) {
-    final bool enabled = !notifier.loading;
+  Widget loginContent(LoginStateProvider provider) {
+    final bool enabled = !provider.loading;
 
-    if (notifier.user == null) {
+    if (provider.user == null) {
       return Form(
         key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(notifier.message),
+            Text(provider.message),
             const CircleAvatar(
               radius: 50.0,
               backgroundImage: AssetImage('assets/logo.png'),
@@ -54,23 +54,22 @@ class _LoginPageState extends State<LoginPage> {
             inputField("Phone", "1-770-736-8031 x56442", phoneController, false,
                 enabled),
             const SizedBox(height: 24.0),
-            loginButton(notifier)
+            button("Login", () => onLogin(provider))
           ],
         ),
       );
     } else {
-      return button("Próximo", () {
-        Navigator.pushNamed(context, Routes.LIST_POSTS);
-      });
+      return button("Próximo", onNextPage);
     }
   }
 
-  Widget loginButton(LoginStateProvider notifier) {
-    return button("Login", () {
-      if (_formKey.currentState?.validate() ?? false) {
-        notifier.authenticateUser(
-            usernameController.text, phoneController.text);
-      }
-    });
+  void onNextPage() {
+    Navigator.pushNamed(context, Routes.LIST_POSTS);
+  }
+
+  void onLogin(LoginStateProvider provider) {
+    if (_formKey.currentState?.validate() ?? false) {
+      provider.authenticateUser(usernameController.text, phoneController.text);
+    }
   }
 }

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:user_crud_flutter/components/colors.dart';
 import 'package:user_crud_flutter/config/routes.dart';
 import 'package:user_crud_flutter/views/add_comment/add_comment.dart';
+import 'package:user_crud_flutter/views/add_comment/add_comment_state.dart';
 import 'package:user_crud_flutter/views/list_posts/list_posts.dart';
 import 'package:user_crud_flutter/views/list_posts/list_posts_state.dart';
 import 'package:user_crud_flutter/views/login/login.dart';
@@ -13,6 +14,7 @@ void main() => runApp(
         providers: [
           ChangeNotifierProvider(create: (context) => LoginStateProvider()),
           ChangeNotifierProvider(create: (context) => ListPostsStateProvider()),
+          ChangeNotifierProvider(create: (context) => AddCommentStateProvider())
         ],
         child: const MyApp(),
       ),

@@ -2,10 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:user_crud_flutter/helper/user_helper.dart';
 import 'package:user_crud_flutter/model/post.dart';
 import 'package:user_crud_flutter/model/user.dart';
-import 'package:user_crud_flutter/service/user_service.dart';
 import 'package:user_crud_flutter/service/post_service.dart';
 
 class ListPostsStateProvider extends ChangeNotifier {
@@ -14,34 +12,6 @@ class ListPostsStateProvider extends ChangeNotifier {
   String statusMessage = "";
   List<Post> postList = [];
   PostService postService = PostService();
-
-  updateUser(User user) async {
-    this.user = user;
-
-    if (user.id == null) {
-      loading = true;
-      statusMessage = "Retrieving your personal informations.";
-      UserService userService = UserService();
-      userService
-          .getAllUsers()
-          .then((response) => onUserResponse(response))
-          .onError((error, stackTrace) => onUserError());
-    }
-  }
-
-  onUserError() async {
-    loading = false;
-    statusMessage = "Was not possible to retrieve your personal informations.";
-    notifyListeners();
-  }
-
-  onUserResponse(Response response) async {
-    loading = false;
-    statusMessage = "";
-    user = UserHelper().findUserByUserName(
-        response.body as List<dynamic>, user?.username ?? "");
-    notifyListeners();
-  }
 
   findAllPosts() async {
     loading = true;
@@ -68,5 +38,9 @@ class ListPostsStateProvider extends ChangeNotifier {
     loading = false;
     statusMessage = "Sorry, but was not possible to retrieve the data.";
     notifyListeners();
+  }
+
+  void setUser(User? user) {
+    this.user = user;
   }
 }

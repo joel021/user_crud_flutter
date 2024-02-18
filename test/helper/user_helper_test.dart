@@ -10,29 +10,6 @@ void main() {
     userList = jsonDecode("""
 [
   {
-    "id": 1,
-    "name": "Leanne Graham",
-    "username": "Bret",
-    "email": "Sincere@april.biz",
-    "address": {
-      "street": "Kulas Light",
-      "suite": "Apt. 556",
-      "city": "Gwenborough",
-      "zipcode": "92998-3874",
-      "geo": {
-        "lat": "-37.3159",
-        "lng": "81.1496"
-      }
-    },
-    "phone": "1-770-736-8031 x56442",
-    "website": "hildegard.org",
-    "company": {
-      "name": "Romaguera-Crona",
-      "catchPhrase": "Multi-layered client-server neural-net",
-      "bs": "harness real-time e-markets"
-    }
-  },
-  {
     "id": 2,
     "name": "Ervin Howell",
     "username": "Antonette",
@@ -65,7 +42,15 @@ void main() {
       UserHelper userHelper = UserHelper();
       User? user = userHelper.findUserByUserName(userList, "Antonette");
       expect(() {
-        assert(user != null);
+        assert(user != Null);
+      }, throwsAssertionError);
+    });
+
+    test('User not existent, return null.', () async {
+      UserHelper userHelper = UserHelper();
+      User? user = userHelper.findUserByUserName(userList, "Antonette hahah");
+      expect(() {
+        assert(user == Null);
       }, throwsAssertionError);
     });
   });
