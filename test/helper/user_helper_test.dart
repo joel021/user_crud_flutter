@@ -38,20 +38,16 @@ void main() {
   tearDown(() {});
 
   group('Find by username', () {
-    test('User existent is not null.', () async {
+    test('User existent is not null.', () {
       UserHelper userHelper = UserHelper();
       User? user = userHelper.findUserByUserName(userList, "Antonette");
-      expect(() {
-        assert(user != Null);
-      }, throwsAssertionError);
+      assert(user != null, "Expected not null, returned ${user}");
     });
 
-    test('User not existent, return null.', () async {
+    test('User not existent, return null.', () {
       UserHelper userHelper = UserHelper();
       User? user = userHelper.findUserByUserName(userList, "Antonette hahah");
-      expect(() {
-        assert(user == Null);
-      }, throwsAssertionError);
+      assert(user == null, "Expected null, returned ${user}");
     });
   });
 }
