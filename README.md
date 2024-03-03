@@ -1,4 +1,4 @@
-# user_crud_flutter
+# User Posts CRUD
 
 A project for prove concept of front-end development techniques.
 
