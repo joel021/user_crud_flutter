@@ -1,6 +1,6 @@
 # user_crud_flutter
 
-A new Flutter project.
+A project for prove concept of front-end development techniques.
 
 ## Getting Started
 
